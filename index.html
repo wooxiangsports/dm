@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 阻止搜尋引擎索引與檢索此網頁 -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>無向運動有限公司 | 專業體育運動裝備</title>
+
+    <!-- 1. 搜尋引擎描述 -->
+    <meta name="description" content="無向運動提供高品質的外套、長褲、熱昇華籃球衣、足球與排球等專業體育運動裝備與隊服客製服務。">
+    <!-- 2. LINE / 臉書分享卡片標題 -->
+    <meta property="og:title" content="無向運動有限公司 | 專業體育運動裝備">
+    <!-- 3. LINE / 臉書分享卡片描述（修改這裡的文字） -->
+    <meta property="og:description" content="無向運動提供高品質的外套、長褲、熱昇華籃球衣、足球與排球等專業體育運動裝備與隊服客製服務。">
+    <!-- 4. 分享卡片圖片（可選，建議設定為品牌 Logo 或代表圖） -->
+    <meta property="og:image" content="https://wooxiangsports.github.io/dm/assets/img/logo.jpg">
+
+    <link rel="stylesheet" href="assets/main.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+        <header>
+            <div class="container header-inner">
+                <div class="logo">
+                    <a href="#">
+                        <img src="assets/img/logo/logo_img.png" alt="無向運動 Logo" class="logo-icon">
+                        <img src="assets/img/logo/logo_txt.png" alt="無向運動" class="logo-text">
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav>
+                    <a href="#" 
+                       v-for="cat in navCategories" 
+                       :key="cat"
+                       :class="{ active: selectedCategory === cat }"
+                       @click.prevent="filterCategory(cat)">
+                       {{ cat }}
+                    </a>
+                </nav>
+
+                <div class="header-actions">
+                    <!-- Hamburger Button -->
+                    <div class="hbg" :class="{ 'is-active': isMenuOpen }" @click="toggleMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Header 下方加入 Banner 區塊 -->
+        <section class="hero-banner">
+            <div class="text-center">
+                <h2>展現獨一無二的團隊識別</h2>
+                <p>全品項免費客製，不限設計調整次數，修到滿意為止！</p>
+            </div>
+        </section>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-nav" :class="{ 'is-open': isMenuOpen }">
+            <a href="#" 
+               v-for="cat in navCategories" 
+               :key="'mobile-' + cat"
+               :class="{ active: selectedCategory === cat }"
+               @click.prevent="filterCategory(cat); isMenuOpen = false">
+               {{ cat }}
+            </a>
+        </div>
+
+        <article id="products">
+            <div class="container">
+
+                <!-- Dynamic Product Grid -->
+                <div class="product-grid">
+                    <div class="product-card" v-for="product in filteredProducts" :key="product.id">
+                        <div class="product-img">
+                            <span class="tag" v-if="product.tag">{{ product.tag }}</span>
+                            <!-- 商品卡片區塊 -->
+                            <img 
+                                :src="product.image" 
+                                :alt="product.name" 
+                                loading="lazy" 
+                                @error="handleImageError($event, product.id)"
+                            >
+                        </div>
+
+                        <div class="product-info">
+                            <span class="category">{{ product.category }}</span>
+                            <h3>{{ product.name }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <footer>
+            <div class="container footer-inner">
+                <div class="logo">
+                    <a href="#">
+                        <img src="assets/img/logo/logo_img_white.png" alt="無向運動 Logo" class="logo-icon">
+                    </a>
+                    <p>統一編號 ｜ 62011256</p>
+                </div>
+
+                <div class="copyright">
+                    &copy; 2026 無向運動有限公司. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="assets/main.js"></script>
+</body>
+</html>
